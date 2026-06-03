@@ -1,0 +1,53 @@
+{
+  "model_name": "Water Potability Random Forest Classifier",
+  "created_at": "2026-06-03T06:38:32.964824+00:00",
+  "intended_use": "Rapid field screening of water samples based on physical and chemical measurements to flag potentially unsafe water for further laboratory testing.",
+  "not_intended_for": [
+    "Replacing certified laboratory testing",
+    "Detecting biological contamination (bacteria, viruses)",
+    "Final safety certification of drinking water",
+    "Fully automated decisions without human review"
+  ],
+  "features": [
+    "ph",
+    "Hardness",
+    "Solids",
+    "Chloramines",
+    "Sulfate",
+    "Conductivity",
+    "Organic_carbon",
+    "Trihalomethanes",
+    "Turbidity"
+  ],
+  "excluded_features": [],
+  "performance": {
+    "accuracy": 0.668,
+    "recall_non_potable": 0.932,
+    "precision_non_potable": 0.661,
+    "f1_non_potable": 0.774,
+    "false_negatives": 27,
+    "false_positives": 191,
+    "decision_threshold": 0.6
+  },
+  "neural_network_comparison": {
+    "finding": "MLP neural networks (TensorFlow and PyTorch) consistently underperformed Random Forest on this dataset",
+    "best_mlp_recall": 0.75,
+    "rf_recall_at_t06": 0.932,
+    "explanation": "Consistent with Grinsztajn et al. (2022) showing tree-based models outperform NNs on small tabular datasets with weak feature signals"
+  },
+  "limitations": [
+    "Dataset contains no biological contamination measurements",
+    "Geographic origin of dataset is undocumented",
+    "Missing values in pH (14.99%) and Sulfate (23.84%) filled with median imputation",
+    "Static model requires periodic retraining as water chemistry changes over time",
+    "27 false negatives per 656 samples at threshold 0.6 mean some unsafe water may be cleared"
+  ],
+  "deployment_gate": {
+    "threshold_tuned": true,
+    "smote_train_only": true,
+    "leakage_check_passed": true,
+    "human_review_required": true,
+    "approved_for_field_screening": true,
+    "approved_for_final_certification": false
+  }
+}
