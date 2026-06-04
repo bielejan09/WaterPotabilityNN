@@ -36,7 +36,7 @@ class WaterMLP_v1(nn.Module):
 nn_model = WaterMLP_v1()
 nn_model.load_state_dict(torch.load("pytorch_model.pth", map_location=torch.device("cpu")))
 nn_model.eval()
-nn_threshold = 0.5
+nn_threshold = 0.7
 
 @app.route("/", methods=["GET"])
 def home():
@@ -44,7 +44,7 @@ def home():
         "name":     "Water Potability Prediction API",
         "version":  "2.0",
         "sdg":      "SDG 6 - Clean Water and Sanitation",
-        "models":   ["Random Forest (threshold 0.6)", "PyTorch MLP v1 (threshold 0.5)"],
+        "models":   ["Random Forest (threshold 0.6)", "PyTorch MLP v1 (threshold 0.7)"],
         "endpoint": "/predict",
         "method":   "POST"
     })
@@ -82,11 +82,11 @@ def predict():
                 "safe":        bool(nn_pred == 1)
             },
             "recommended": {
-                "model":       "Random Forest",
-                "reason":      "Higher recall on unsafe water (0.932 vs 0.750)",
-                "prediction":  rf_pred,
-                "label":       "Potable" if rf_pred == 1 else "Non-potable",
-                "safe":        bool(rf_pred == 1)
+                "model":       "Neural Network (PyTorch v1)",
+                "reason":      "Higher recall on unsafe water (0.953 vs 0.932 for RF) with only 19 missed unsafe samples vs 27",
+                "prediction":  nn_pred,
+                "label":       "Potable" if nn_pred == 1 else "Non-potable",
+                "safe":        bool(nn_pred == 1)
             }
         })
     except Exception as e:

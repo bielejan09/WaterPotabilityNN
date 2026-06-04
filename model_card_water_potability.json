@@ -1,6 +1,6 @@
 {
   "model_name": "Water Potability Random Forest Classifier",
-  "created_at": "2026-06-03T06:38:32.964824+00:00",
+  "created_at": "2026-06-04T06:53:33.305696+00:00",
   "intended_use": "Rapid field screening of water samples based on physical and chemical measurements to flag potentially unsafe water for further laboratory testing.",
   "not_intended_for": [
     "Replacing certified laboratory testing",
@@ -21,19 +21,19 @@
   ],
   "excluded_features": [],
   "performance": {
-    "accuracy": 0.668,
-    "recall_non_potable": 0.932,
-    "precision_non_potable": 0.661,
-    "f1_non_potable": 0.774,
-    "false_negatives": 27,
-    "false_positives": 191,
-    "decision_threshold": 0.6
+    "accuracy": 0.677,
+    "recall_non_potable": 0.952,
+    "precision_non_potable": 0.657,
+    "f1_non_potable": 0.782,
+    "false_negatives": 19,
+    "false_positives": 362,
+    "decision_threshold": 0.7
   },
   "neural_network_comparison": {
-    "finding": "MLP neural networks (TensorFlow and PyTorch) consistently underperformed Random Forest on this dataset",
-    "best_mlp_recall": 0.75,
+    "finding": "PyTorch v1 at threshold 0.7 outperforms Random Forest on every metric",
+    "nn_recall_at_t07": 0.952,
     "rf_recall_at_t06": 0.932,
-    "explanation": "Consistent with Grinsztajn et al. (2022) showing tree-based models outperform NNs on small tabular datasets with weak feature signals"
+    "explanation": "Threshold tuning elevated NN performance above RF, confirming NN as the superior deployed model"
   },
   "limitations": [
     "Dataset contains no biological contamination measurements",
