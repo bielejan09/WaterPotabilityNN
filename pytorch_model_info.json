@@ -1,0 +1,1 @@
+{"architecture": "WaterMLP_v1", "input_size": 9, "hidden_layers": [64, 32], "dropout": 0.3, "output_size": 1, "threshold": 0.5}
