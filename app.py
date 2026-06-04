@@ -82,11 +82,11 @@ def predict():
                 "safe":        bool(nn_pred == 1)
             },
             "recommended": {
-                "model":       "Neural Network (PyTorch v1)",
-                "reason":      "Higher recall on unsafe water (0.953 vs 0.932 for RF) with only 19 missed unsafe samples vs 27",
-                "prediction":  nn_pred,
-                "label":       "Potable" if nn_pred == 1 else "Non-potable",
-                "safe":        bool(nn_pred == 1)
+                "model":       "Neural Network (PyTorch v1)" if nn_prob > rf_prob else "Random Forest",
+                "reason":      "Higher confidence on this specific sample",
+                "prediction":  nn_pred if nn_prob > rf_prob else rf_pred,
+                "label":       ("Potable" if nn_pred == 1 else "Non-potable") if nn_prob > rf_prob else ("Potable" if rf_pred == 1 else "Non-potable"),
+                "safe":        bool(nn_pred == 1) if nn_prob > rf_prob else bool(rf_pred == 1)
             }
         })
     except Exception as e:
