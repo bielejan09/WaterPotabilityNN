@@ -126,10 +126,10 @@ def home():
             result.style.display = "block";
             if (data.recommended.safe) {
                 result.className = "result safe";
-                label.innerHTML = "✅ POTABLE — Safe to drink";
+                label.innerHTML = "✅ POTABLE (Safe to drink)";
             } else {
                 result.className = "result unsafe";
-                label.innerHTML = "❌ NON-POTABLE — Unsafe";
+                label.innerHTML = "❌ NON-POTABLE (Not safe to drink)";
             }
 
             detail.innerHTML = `
