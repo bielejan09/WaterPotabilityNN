@@ -48,15 +48,100 @@ nn_threshold = 0.7
 
 @app.route("/", methods=["GET"])
 def home():
-    return jsonify({
-        "name":     "Water Potability Prediction API",
-        "version":  "2.0",
-        "sdg":      "SDG 6 - Clean Water and Sanitation",
-        "models":   ["Random Forest (threshold 0.6)", "PyTorch MLP v1 (threshold 0.7)"],
-        "endpoint": "/predict",
-        "method":   "POST"
-    })
+    return """
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Water Potability Prediction</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; background: #f0f8ff; }
+        h1 { color: #1A5F7A; }
+        .sdg { color: #2E9E6B; font-weight: bold; }
+        input { width: 80px; padding: 5px; margin: 5px; border: 1px solid #ccc; border-radius: 4px; }
+        button { background: #1A5F7A; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-top: 10px; }
+        button:hover { background: #2E9E6B; }
+        .result { margin-top: 20px; padding: 15px; border-radius: 8px; display: none; }
+        .safe { background: #d4edda; border: 1px solid #2E9E6B; }
+        .unsafe { background: #f8d7da; border: 1px solid #e05252; }
+        .label { font-size: 24px; font-weight: bold; }
+        .detail { margin-top: 10px; font-size: 14px; color: #555; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        td { padding: 5px 10px; border-bottom: 1px solid #eee; }
+    </style>
+</head>
+<body>
+    <h1>Water Potability Prediction</h1>
+    <p class="sdg">SDG 6: Clean Water and Sanitation</p>
+    <p>Enter 9 water quality measurements to predict potability.</p>
 
+    <table>
+        <tr><td>pH</td><td><input type="number" id="ph" step="0.01" placeholder="7.2"></td></tr>
+        <tr><td>Hardness</td><td><input type="number" id="hardness" step="0.01" placeholder="204.0"></td></tr>
+        <tr><td>Solids</td><td><input type="number" id="solids" step="0.01" placeholder="20791.0"></td></tr>
+        <tr><td>Chloramines</td><td><input type="number" id="chloramines" step="0.01" placeholder="7.3"></td></tr>
+        <tr><td>Sulfate</td><td><input type="number" id="sulfate" step="0.01" placeholder="368.0"></td></tr>
+        <tr><td>Conductivity</td><td><input type="number" id="conductivity" step="0.01" placeholder="564.0"></td></tr>
+        <tr><td>Organic Carbon</td><td><input type="number" id="organic_carbon" step="0.01" placeholder="10.3"></td></tr>
+        <tr><td>Trihalomethanes</td><td><input type="number" id="trihalomethanes" step="0.01" placeholder="86.0"></td></tr>
+        <tr><td>Turbidity</td><td><input type="number" id="turbidity" step="0.01" placeholder="2.96"></td></tr>
+    </table>
+
+    <button onclick="predict()">Predict</button>
+
+    <div class="result" id="result">
+        <div class="label" id="label"></div>
+        <div class="detail" id="detail"></div>
+    </div>
+
+    <script>
+        async function predict() {
+            const features = [
+                parseFloat(document.getElementById("ph").value),
+                parseFloat(document.getElementById("hardness").value),
+                parseFloat(document.getElementById("solids").value),
+                parseFloat(document.getElementById("chloramines").value),
+                parseFloat(document.getElementById("sulfate").value),
+                parseFloat(document.getElementById("conductivity").value),
+                parseFloat(document.getElementById("organic_carbon").value),
+                parseFloat(document.getElementById("trihalomethanes").value),
+                parseFloat(document.getElementById("turbidity").value)
+            ];
+
+            if (features.some(isNaN)) {
+                alert("Please fill in all 9 fields.");
+                return;
+            }
+
+            const response = await fetch("/predict", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({features: features})
+            });
+
+            const data = await response.json();
+            const result = document.getElementById("result");
+            const label = document.getElementById("label");
+            const detail = document.getElementById("detail");
+
+            result.style.display = "block";
+            if (data.recommended.safe) {
+                result.className = "result safe";
+                label.innerHTML = "✅ POTABLE — Safe to drink";
+            } else {
+                result.className = "result unsafe";
+                label.innerHTML = "❌ NON-POTABLE — Unsafe";
+            }
+
+            detail.innerHTML = `
+                <b>Recommended model:</b> ${data.recommended.model}<br>
+                <b>Neural Network:</b> ${data.neural_network.label} (confidence: ${data.neural_network.confidence}, threshold: ${data.neural_network.threshold})<br>
+                <b>Random Forest:</b> ${data.random_forest.label} (confidence: ${data.random_forest.confidence}, threshold: ${data.random_forest.threshold})
+            `;
+        }
+    </script>
+</body>
+</html>
+"""
 @app.route("/health", methods=["GET"])
 def health():
     return jsonify({
