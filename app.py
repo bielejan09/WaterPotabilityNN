@@ -174,7 +174,9 @@ def predict():
         nn_pred  = int(nn_prob >= nn_threshold)
 
         # Dynamic recommendation
-        recommended_is_nn = nn_prob > rf_prob
+        nn_confidence = abs(nn_prob - 0.5)
+        rf_confidence = abs(rf_prob - 0.5)
+        recommended_is_nn = nn_confidence > rf_confidence
 
         result = {
             "random_forest": {
@@ -193,7 +195,7 @@ def predict():
             },
             "recommended": {
                 "model":      "Neural Network (PyTorch v1)" if recommended_is_nn else "Random Forest",
-                "reason":     "Higher confidence on this specific sample",
+                "reason": "Higher certainty on this specific sample (distance from 0.5)",
                 "prediction": nn_pred if recommended_is_nn else rf_pred,
                 "label":      ("Potable" if nn_pred == 1 else "Non-potable") if recommended_is_nn else ("Potable" if rf_pred == 1 else "Non-potable"),
                 "safe":       bool(nn_pred == 1) if recommended_is_nn else bool(rf_pred == 1)
