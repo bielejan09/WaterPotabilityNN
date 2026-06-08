@@ -33,6 +33,7 @@ WaterPotabilityNN/
 ├── scaler.pkl                       # Fitted StandardScaler
 ├── threshold.pkl                    # RF optimal threshold (0.6)
 └── model_card_water_potability.json # MLSecOps model card
+└── data_card_water_potability.json  # MLSecOps data card
 ```
 ---
 
