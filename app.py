@@ -144,12 +144,52 @@ def home():
 """
 @app.route("/health", methods=["GET"])
 def health():
-    return jsonify({
-        "status":        "ok",
-        "models_loaded": True,
-        "nn_threshold":  nn_threshold,
-        "rf_threshold":  float(rf_threshold)
-    })
+    return """
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Health</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 500px; margin: 40px auto; padding: 20px; background: #f0f8ff; }
+        h1 { color: #1A5F7A; }
+        .status { background: #d4edda; border: 1px solid #02C39A; border-radius: 8px; padding: 15px; margin: 20px 0; }
+        .status h2 { color: #02C39A; margin: 0 0 10px 0; }
+        table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        th { background: #1A5F7A; color: white; padding: 10px; text-align: left; }
+        td { padding: 10px; border-bottom: 1px solid #e2e8f0; }
+        td:first-child { font-weight: bold; color: #1A5F7A; }
+        .sdg { color: #02C39A; font-size: 13px; font-style: italic; }
+        a { color: #1A5F7A; }
+    </style>
+</head>
+<body>
+    <h1>💧 Water Potability API</h1>
+    <p class="sdg">SDG 6: Clean Water and Sanitation</p>
+
+    <div class="status">
+        <h2>✅ Status: Online</h2>
+        Both models loaded and ready for predictions.
+    </div>
+
+    <table>
+        <tr><th>Property</th><th>Value</th></tr>
+        <tr><td>Version</td><td>2.0</td></tr>
+        <tr><td>Neural Network</td><td>PyTorch MLP v1</td></tr>
+        <tr><td>NN Threshold</td><td>0.7</td></tr>
+        <tr><td>Random Forest</td><td>200 trees</td></tr>
+        <tr><td>RF Threshold</td><td>0.6</td></tr>
+        <tr><td>Features</td><td>9 physicochemical measurements</td></tr>
+        <tr><td>Recommendation</td><td>Dynamic by certainty distance from 0.5</td></tr>
+    </table>
+
+    <p style="margin-top: 20px; font-size: 13px; color: #64748b;">
+        <a href="/">Prediction Form</a> &nbsp;|&nbsp;
+        POST /predict to make predictions &nbsp;|&nbsp;
+        <a href="https://github.com/bielejan09/WaterPotabilityNN">GitHub</a>
+    </p>
+</body>
+</html>
+"""
 
 @app.route("/predict", methods=["POST"])
 def predict():
