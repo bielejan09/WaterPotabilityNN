@@ -201,6 +201,15 @@ def predict():
         if features.shape[1] != 9:
             return jsonify({"error": "Expected exactly 9 features"}), 400
 
+        # All features must be non-negative
+        if (features < 0).any():
+            return jsonify({"error": "All feature values must be non-negative"}), 400
+
+        # pH hard limit
+        ph = features[0][0]
+        if ph > 14:
+            return jsonify({"error": f"Invalid pH value {ph}. pH must be between 0 and 14."}), 400
+
         features_sc = scaler.transform(features)
 
         # Random Forest prediction
