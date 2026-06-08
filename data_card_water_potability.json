@@ -1,0 +1,23 @@
+{
+  "dataset_name": "Water Potability Dataset",
+  "purpose": "Predicting drinking water safety using physicochemical measurements in support of SDG 6 - Clean Water and Sanitation",
+  "created_at": "2026-06-08T08:47:54.730173+00:00",
+  "rows": 3276,
+  "target": "Potability",
+  "protected_attributes": [],
+  "pii_policy": "No personal identifiers included. Dataset contains only anonymised water sample measurements with no link to individuals or locations.",
+  "known_risks": [
+    "Dataset contains no biological contamination measurements. Model cannot detect bacterial or viral threats.",
+    "Geographic origin of samples is undocumented. Model may not generalise to all regions.",
+    "Missing values in pH (14.99%) and Sulfate (23.84%) introduce uncertainty via imputation",
+    "Class imbalance (61% non-potable) may bias predictions without correction",
+    "Misclassification of unsafe water as safe carries direct public health consequences"
+  ],
+  "required_controls": [
+    "SMOTE oversampling applied to training set only to address class imbalance",
+    "Threshold tuning to prioritise recall on non-potable class",
+    "Model must not be used as sole decision maker. Human review required for flagged samples.",
+    "Periodic retraining required as water chemistry changes over time",
+    "Monitoring for prediction drift when deployed in new geographic regions"
+  ]
+}
