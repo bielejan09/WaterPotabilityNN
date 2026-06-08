@@ -124,6 +124,14 @@ def home():
             const detail = document.getElementById("detail");
 
             result.style.display = "block";
+
+            if (data.error) {
+                result.className = "result unsafe";
+                label.innerHTML = "⚠️ Invalid Input";
+                detail.innerHTML = `<b>Error:</b> ${data.error}`;
+                return;
+            }
+
             if (data.recommended.safe) {
                 result.className = "result safe";
                 label.innerHTML = "✅ POTABLE (Safe to drink)";
