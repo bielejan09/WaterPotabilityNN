@@ -176,7 +176,7 @@ Content-Type: application/json
 ## Model Performance
 
 | Model | Accuracy | Recall (Unsafe) | False Negatives |
-|---|---|---|---|
+|---|:---:|:---:|:---:|
 | TF v1 / PyTorch v1 (0.5) | 64.3% | 0.750 | 100 |
 | PyTorch v2 | 61.9% | 0.630 | 148 |
 | PyTorch v3 | 60.5% | 0.642 | 143 |
