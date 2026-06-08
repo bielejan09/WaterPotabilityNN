@@ -151,14 +151,14 @@ def health():
     <title>API Health</title>
     <style>
         body { font-family: Arial, sans-serif; max-width: 500px; margin: 40px auto; padding: 20px; background: #f0f8ff; }
-        h1 { color: #1A5F7A; }
+        h1 { color: #1A5F7A; text-align: center; }
         .status { background: #d4edda; border: 1px solid #02C39A; border-radius: 8px; padding: 15px; margin: 20px 0; }
         .status h2 { color: #02C39A; margin: 0 0 10px 0; }
         table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
         th { background: #1A5F7A; color: white; padding: 10px; text-align: left; }
         td { padding: 10px; border-bottom: 1px solid #e2e8f0; }
         td:first-child { font-weight: bold; color: #1A5F7A; }
-        .sdg { color: #02C39A; font-size: 13px; font-style: italic; }
+        .sdg { color: #02C39A; font-size: 13px; font-style: italic; text-align: center; }
         a { color: #1A5F7A; }
     </style>
 </head>
@@ -182,7 +182,7 @@ def health():
         <tr><td>Recommendation</td><td>Dynamic by certainty distance from 0.5</td></tr>
     </table>
 
-    <p style="margin-top: 20px; font-size: 13px; color: #64748b;">
+    <p style="margin-top: 20px; font-size: 13px; color: #64748b; text-align: center; ">
         <a href="/">Prediction Form</a> &nbsp;|&nbsp;
         POST /predict to make predictions &nbsp;|&nbsp;
         <a href="https://github.com/bielejan09/WaterPotabilityNN">GitHub</a>
