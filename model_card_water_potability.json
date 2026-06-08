@@ -1,6 +1,6 @@
 {
-  "model_name": "Water Potability Random Forest Classifier",
-  "created_at": "2026-06-04T06:53:33.305696+00:00",
+  "model_name": "Water Potability Neural Network Classifier (PyTorch MLP v1)",
+  "created_at": "2026-06-08T08:44:41.557689+00:00",
   "intended_use": "Rapid field screening of water samples based on physical and chemical measurements to flag potentially unsafe water for further laboratory testing.",
   "not_intended_for": [
     "Replacing certified laboratory testing",
@@ -26,7 +26,7 @@
     "precision_non_potable": 0.657,
     "f1_non_potable": 0.782,
     "false_negatives": 19,
-    "false_positives": 362,
+    "false_positives": 193,
     "decision_threshold": 0.7
   },
   "neural_network_comparison": {
@@ -40,7 +40,7 @@
     "Geographic origin of dataset is undocumented",
     "Missing values in pH (14.99%) and Sulfate (23.84%) filled with median imputation",
     "Static model requires periodic retraining as water chemistry changes over time",
-    "27 false negatives per 656 samples at threshold 0.6 mean some unsafe water may be cleared"
+    "19 false negatives per 656 samples at threshold 0.7 mean some unsafe water may be cleared"
   ],
   "deployment_gate": {
     "threshold_tuned": true,
