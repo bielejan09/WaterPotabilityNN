@@ -1,6 +1,6 @@
 {
   "model_name": "Water Potability Neural Network Classifier (PyTorch MLP v1)",
-  "created_at": "2026-06-08T08:44:41.557689+00:00",
+  "created_at": "2026-06-10T08:16:45.388615+00:00",
   "intended_use": "Rapid field screening of water samples based on physical and chemical measurements to flag potentially unsafe water for further laboratory testing.",
   "not_intended_for": [
     "Replacing certified laboratory testing",
@@ -49,5 +49,19 @@
     "human_review_required": true,
     "approved_for_field_screening": true,
     "approved_for_final_certification": false
+  },
+  "end_of_life": {
+    "retirement_triggers": [
+      "Azure student credits exhausted \u2014> VM will be suspended automatically",
+      "Course submission deadline passed"
+    ],
+    "retirement_steps": [
+      "Stop Azure VM to halt predictions and preserve remaining credits",
+      "Download prediction logs from VM before shutdown if audit is required",
+      "Archive model files and notebook with retirement tag on GitHub",
+      "Update model card with retirement reason and date"
+    ],
+    "transition_policy": "Course project deployment. No formal transition plan, retirement is expected when Azure student credits are exhausted or at the end of semester.",
+    "estimated_end_of_life": "End of semester or when Azure for Students credits are exhausted"
   }
 }
