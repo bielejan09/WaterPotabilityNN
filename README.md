@@ -23,17 +23,18 @@ Health check:  http://72.155.73.40:5000/health
 ## Repository Structure
 ```bash
 WaterPotabilityNN/
-├── WaterPotabilityNN.ipynb          # Main notebook: full ML pipeline
-├── app.py                           # Flask API serving both models
-├── requirements.txt                 # Python dependencies
-├── water_potability.csv             # Dataset (Kadiwal, 2021)
-├── water_potability_model.pkl       # Trained Random Forest (threshold 0.6)
-├── pytorch_model.pth                # Trained PyTorch MLP v1 (threshold 0.7)
-├── pytorch_model_info.json          # PyTorch architecture and threshold info
-├── scaler.pkl                       # Fitted StandardScaler
-├── threshold.pkl                    # RF optimal threshold (0.6)
-├── model_card_water_potability.json # MLSecOps model card
-└── data_card_water_potability.json  # MLSecOps data card
+├── WaterPotabilityNN.ipynb           # Main notebook: full ML pipeline
+├── app.py                            # Flask API serving both models
+├── requirements.txt                  # Python dependencies
+├── water_potability.csv              # Dataset (Kadiwal, 2021)
+├── water_potability_model.pkl        # Trained Random Forest (threshold 0.6)
+├── pytorch_model.pth                 # Trained PyTorch MLP v1 (threshold 0.7)
+├── pytorch_model_info.json           # PyTorch architecture and threshold info
+├── scaler.pkl                        # Fitted StandardScaler
+├── threshold.pkl                     # RF optimal threshold (0.6)
+├── model_card_water_potability.json  # MLSecOps model card
+├── data_card_water_potability.json   # MLSecOps data card
+└──AI_Use_Case_Canvas_WaterPotability # MLSecOps AI Use Case Canvas
 ```
 ---
 
